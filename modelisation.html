@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Kounhinir SOME - Modélisation Mathématique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a3a6c;
+            --secondary: #2a5ca7;
+            --accent: #e63946;
+            --warning: #FFE66D;
+            --success: #95E1D3;
+            --info: #A8D8FF;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --gold: #D4AF37;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f7f9fc 0%, #e8f4f8 100%);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #8B7BC7 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(107, 71, 181, 0.2);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--warning);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: var(--warning);
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .hero i {
+            font-size: 3.2rem;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 2rem;
+        }
+        
+        .tag {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.7rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        
+        .tag:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+        }
+        
+        .content-card:nth-child(2) {
+            border-top-color: var(--accent);
+        }
+        
+        .content-card:nth-child(3) {
+            border-top-color: var(--warning);
+        }
+        
+        .content-card:nth-child(4) {
+            border-top-color: var(--info);
+        }
+        
+        .content-card:nth-child(5) {
+            border-top-color: var(--success);
+        }
+        
+        .content-card:nth-child(6) {
+            border-top-color: #FF6B6B;
+        }
+        
+        .content-card:nth-child(7) {
+            border-top-color: #6B47B5;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .content-card:nth-child(2) .card-header {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--info) 100%);
+        }
+        
+        .content-card:nth-child(3) .card-header {
+            background: linear-gradient(135deg, var(--warning) 0%, #FFC85F 100%);
+            color: var(--dark);
+        }
+        
+        .content-card:nth-child(4) .card-header {
+            background: linear-gradient(135deg, var(--success) 0%, #44B0A3 100%);
+        }
+        
+        .content-card:nth-child(5) .card-header {
+            background: linear-gradient(135deg, #A8D8FF 0%, #7BB8FF 100%);
+        }
+        
+        .content-card:nth-child(6) .card-header {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E72 100%);
+        }
+        
+        .content-card:nth-child(7) .card-header {
+            background: linear-gradient(135deg, #6B47B5 0%, #8B7BC7 100%);
+        }
+        
+        .card-header i {
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .card-header h3 {
+            font-size: 1.3rem;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .highlights {
+            background: linear-gradient(135deg, rgba(107, 71, 181, 0.05) 0%, rgba(78, 205, 196, 0.05) 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .highlights ul {
+            margin-left: 20px;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+        
+        .highlights li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .highlights li:before {
+            content: "✓";
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-top: 2px;
+        }
+        
+        .example {
+            background: linear-gradient(135deg, rgba(255, 230, 109, 0.1) 0%, rgba(255, 200, 95, 0.1) 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .example strong {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .example ul {
+            margin-left: 20px;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+        
+        /* Process Grid */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 20px 0;
+        }
+        
+        .step-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--info) 100%);
+            color: white;
+            padding: 25px 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(42, 92, 167, 0.2);
+        }
+        
+        .step-card:nth-child(2) {
+            background: linear-gradient(135deg, var(--accent) 0%, #FF8E72 100%);
+        }
+        
+        .step-card:nth-child(3) {
+            background: linear-gradient(135deg, var(--warning) 0%, #FFC85F 100%);
+            color: var(--dark);
+        }
+        
+        .step-card:nth-child(4) {
+            background: linear-gradient(135deg, var(--success) 0%, #44B0A3 100%);
+        }
+        
+        .step-card:nth-child(5) {
+            background: linear-gradient(135deg, #A8D8FF 0%, #7BB8FF 100%);
+            color: var(--dark);
+        }
+        
+        .step-card:nth-child(6) {
+            background: linear-gradient(135deg, #6B47B5 0%, #8B7BC7 100%);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+        }
+        
+        .step-number {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+            font-weight: 700;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary) 0%, #6B47B5 50%, var(--dark) 100%);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--warning);
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--info) 100%);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 8px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary) 0%, #8B7BC7 100%);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0;
+                text-align: center;
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 1rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fa-solid fa-square-root"></i>
+                <span>Prof. SOME</span>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html#about">À propos</a></li>
+                    <li><a href="index.html#education">Formation</a></li>
+                    <li><a href="index.html#experience">Expérience</a></li>
+                    <li><a href="index.html#supervision">Encadrement</a></li>
+                    <li><a href="index.html#publications">Publications</a></li>
+                    <li><a href="index.html#skills">Compétences</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>
+                <i class="fas fa-calculator"></i>
+                Modélisation Mathématique
+            </h1>
+            <p>Représenter la réalité complexe par des équations et des structures mathématiques</p>
+            <div class="hero-tags">
+                <div class="tag">Équations différentielles</div>
+                <div class="tag">Systèmes dynamiques</div>
+                <div class="tag">Modèles stochastiques</div>
+                <div class="tag">Simulation numérique</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="content">
+        <div class="container">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fas fa-book"></i>
+                        <h3>Définition</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            La modélisation mathématique est l'art de tracer une représentation simplifiée de la réalité 
+                            à travers un ensemble d'équations et de structures mathématiques. Elle transforme un problème 
+                            réel en un problème abstrait qu'on peut résoudre ou analyser à l'aide des outils mathématiques 
+                            et informatiques. C'est un pont entre le monde physique et le monde mathématique.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Objectifs Principaux</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="highlights">
+                            <ul>
+                                <li>Simplifier les problèmes complexes en les rendant tractables</li>
+                                <li>Comprendre les mécanismes et les relations causales</li>
+                                <li>Prédire le comportement futur du système</li>
+                                <li>Concevoir et optimiser les systèmes</li>
+                                <li>Prendre des décisions informées et éclairées</li>
+                                <li>Tester des hypothèses sans perturbation du système réel</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fas fa-cog"></i>
+                        <h3>Processus de Modélisation</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="process-grid">
+                            <div class="step-card">
+                                <span class="step-number">1</span>
+                                Identifier le problème
+                            </div>
+                            <div class="step-card">
+                                <span class="step-number">2</span>
+                                Simplifier et abstraire
+                            </div>
+                            <div class="step-card">
+                                <span class="step-number">3</span>
+                                Construire le modèle
+                            </div>
+                            <div class="step-card">
+                                <span class="step-number">4</span>
+                                Valider et tester
+                            </div>
+                            <div class="step-card">
+                                <span class="step-number">5</span>
+                                Résoudre et analyser
+                            </div>
+                            <div class="step-card">
+                                <span class="step-number">6</span>
+                                Interpréter les résultats
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fas fa-star"></i>
+                        <h3>Types de Modèles Mathématiques</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="highlights">
+                            <ul>
+                                <li><strong>Modèles déterministes :</strong> sorties prédéterminées par les entrées (équations différentielles)</li>
+                                <li><strong>Modèles stochastiques :</strong> incluent l'aléatoire et les probabilités</li>
+                                <li><strong>Modèles discrets :</strong> variables qui prennent des valeurs discrètes</li>
+                                <li><strong>Modèles continus :</strong> variables réelles pouvant prendre toute valeur</li>
+                                <li><strong>Modèles linéaires :</strong> relations proportionnelles et additives</li>
+                                <li><strong>Modèles non linéaires :</strong> relations complexes et interdépendantes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Domaines d'Application</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="example">
+                            <strong>Applications variées :</strong>
+                            <ul>
+                                <li>Physique : mouvement des corps, électromagnétisme, mécanique quantique</li>
+                                <li>Biologie : croissance des populations, propagation des maladies</li>
+                                <li>Économie : modèles de marché, comportement des consommateurs</li>
+                                <li>Ingénierie : conception de structures, dynamique des fluides</li>
+                                <li>Climat : prévisions météorologiques, modélisation climatique</li>
+                                <li>Épidémiologie : propagation des épidémies, vaccination</li>
+                                <li>Finance : valorisation d'actifs, gestion des risques</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Défis et Limitations</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <strong style="color: var(--accent);">Défis :</strong> 
+                            Obtenir des données fiables, simplifier sans perdre les éléments essentiels, 
+                            adapter le modèle à la réalité, valider la précision du modèle.
+                        </p>
+                        <p>
+                            <strong style="color: var(--warning);">Limitations :</strong> 
+                            Tout modèle est une approximation imparfaite, peut ignorer des facteurs importants, 
+                            suppose des conditions qui peuvent ne pas toujours être vraies, et nécessite une 
+                            interprétation prudente des résultats.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>Validation et Vérification</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Une étape cruciale consiste à valider que le modèle reproduit fidèlement la réalité. 
+                            Cela implique de comparer les prédictions du modèle avec les données observées, 
+                            de tester les hypothèses, et d'ajuster les paramètres si nécessaire. La validation 
+                            croisée, l'analyse de sensibilité et les tests statistiques sont essentiels.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Prof. Kounhinir SOME</h3>
+                    <p>Professeur Titulaire en Mathématiques Appliquées spécialisé en optimisation, recherche opérationnelle et métaleuristiques. Directeur des Innovations Pédagogiques à l'Université Norbert ZONGO.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liens rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#about">À propos</a></li>
+                        <li><a href="index.html#education">Formation</a></li>
+                        <li><a href="index.html#experience">Expérience</a></li>
+                        <li><a href="index.html#supervision">Encadrement</a></li>
+                        <li><a href="index.html#optimization">Optimisation</a></li>
+                        <li><a href="recherche-operationnelle.html">Recherche Opérationnelle</a></li>
+                        <li><a href="metaheuristiques.html">Métaheuristiques</a></li>
+                        <li><a href="modelisation-mathematique.html">Modélisation Mathématique</a></li>
+                        <li><a href="index.html#publications">Publications</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> sokous11@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> (00226) 71228887</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Université Norbert ZONGO, Koudougou</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Koudougou, le 15 septembre 2025</p>
+                <p>&copy; 2025 Prof. Kounhinir SOME. Tous droits réservés.</p>
+            </div>	
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenu');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navMenu.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
